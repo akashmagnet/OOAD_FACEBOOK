@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+	
+	<package name="default" extends="struts-default">
+	<interceptors>
+		<interceptor name="authenticateInterceptor"	class="org.iiitb.facebook.util.AuthenticateInterceptor"></interceptor>
+			<interceptor-stack name="secureAccess">
+				<interceptor-ref name="authenticateInterceptor" />
+				<!-- <interceptor-ref name="createSession" /> -->
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+     <action name="login" class="org.iiitb.facebook.login.LoginAction" method ="execute">
+	           <result name="admin">/jsp/admin/welcomeadmin.jsp</result>
+	           <result name="student">/jsp/studenthome/welcomestudent.jsp</result> 
+	           <result name="faculty">/jsp/facultyhome/welcomefaculty.jsp</result>
+	           <result name="error">/welcome.jsp</result>
+	      </action>
+	      
+	      <action name="getmyprofile" class="org.iiitb.facebook.login.LoginAction" method ="getMyProfile">
+	      		<result name="success">/jsp/viewmyprofile.jsp</result>
+	      		<result name="error">/jsp/error.jsp</result>
+	      </action>
+	      
+<action name="logout" class="org.iiitb.facebook.login.LogoutAction">
+	      		<result name="success">/welcome.jsp</result>
+	      </action>
+	   	 
+ <action name="resetpassword" class="org.iiitb.facebook.login.LoginAction" method ="resetPassword" >
+	   	  		<result name="success">/jsp/resetpassword.jsp</result>
+	   	  		<result name="error">/jsp/error.jsp</result>
+	   	  </action>
+	   	  <action name="getimage" class="org.iiitb.facebook.login.LoginAction" method ="getImage" />
+	   	  <action name="getprofileimage" class="org.iiitb.facebook.login.LoginAction" method ="getprofileImage" />
+
+                  
+</package>		
+	</struts>
